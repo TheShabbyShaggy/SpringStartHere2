@@ -1,5 +1,6 @@
 package com.ely.SpringStartHere.controller;
 
+import com.ely.SpringStartHere.service.LoggedUserManagementService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -8,6 +9,12 @@ import org.springframework.web.context.annotation.RequestScope;
 public class LoginProcessor {
     private String username;
     private String password;
+
+    private final LoggedUserManagementService loggedUserManagementService;
+
+    public LoginProcessor(LoggedUserManagementService loggedUserManagementService) {
+        this.loggedUserManagementService = loggedUserManagementService;
+    }
 
     public String getUsername() {
         return username;
@@ -29,6 +36,13 @@ public class LoginProcessor {
         String username = this.getUsername();
         String password = this.getPassword();
 
-        return username.equals("natalie") && password.equals("password");
+        boolean loggedIn = false;
+
+        if(username.equals("natalie") && password.equals("password")) {
+            loggedIn = true;
+            loggedUserManagementService.setUsername(username);
+        }
+
+        return loggedIn;
     }
 }
