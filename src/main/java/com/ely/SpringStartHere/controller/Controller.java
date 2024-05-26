@@ -1,15 +1,15 @@
 package com.ely.SpringStartHere.controller;
 
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @org.springframework.stereotype.Controller
 public class Controller {
-    @RequestMapping("/home")
-    public String home(Model page, @RequestParam(required = false) String colour, @RequestParam(required = false) String name) {
-        page.addAttribute("username", name);
-        page.addAttribute("colour", colour);
+    @RequestMapping("/home/{color}")
+    public String home(Model page, @PathVariable String color) {
+        page.addAttribute("username", "Anuj");
+        page.addAttribute("colour", color);
         return "home.html";
     }
 }
