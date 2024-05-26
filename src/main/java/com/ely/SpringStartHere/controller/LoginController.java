@@ -23,7 +23,7 @@ public class LoginController {
     public String loginPost(@RequestParam String username, @RequestParam String password, Model model) {
         loginProcessor.setUsername(username);
         loginProcessor.setPassword(password);
-        boolean loggedIn = loginProcessor.logic();
+        boolean loggedIn = loginProcessor.login();
         if(loggedIn) {
             return "redirect:/main";
         }

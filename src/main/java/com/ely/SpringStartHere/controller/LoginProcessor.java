@@ -1,6 +1,7 @@
 package com.ely.SpringStartHere.controller;
 
 import com.ely.SpringStartHere.service.LoggedUserManagementService;
+import com.ely.SpringStartHere.service.LoginCountService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.RequestScope;
 
@@ -11,9 +12,11 @@ public class LoginProcessor {
     private String password;
 
     private final LoggedUserManagementService loggedUserManagementService;
+    private final LoginCountService loginCountService;
 
-    public LoginProcessor(LoggedUserManagementService loggedUserManagementService) {
+    public LoginProcessor(LoggedUserManagementService loggedUserManagementService, LoginCountService loginCountService) {
         this.loggedUserManagementService = loggedUserManagementService;
+        this.loginCountService = loginCountService;
     }
 
     public String getUsername() {
@@ -32,7 +35,8 @@ public class LoginProcessor {
         this.password = password;
     }
 
-    public boolean logic() {
+    public boolean login() {
+        loginCountService.increment();
         String username = this.getUsername();
         String password = this.getPassword();
 
